@@ -1,1 +1,79 @@
-<quiz><question type="multichoice"><name><text>&#220;bung 1:  Daten und Modell</text></name><questiontext format="html"><text>&#220;bung 1:  Daten und Modell</text></questiontext><answer fraction="100"><text>A</text></answer><answer fraction="0"><text>B,</text></answer><single>false</single><answernumbering>abc</answernumbering></question><question type="multichoice"><name><text>&#220;bung 3:  Beweis</text></name><questiontext format="html"><text>&#220;bung 3:  Beweis</text></questiontext><answer fraction="0"><text>A</text></answer><answer fraction="100"><text>B</text></answer><answer fraction="0"><text>C</text></answer><single>false</single><answernumbering>abc</answernumbering></question><question type="multichoice"><name><text>&#220;bung: 4</text></name><questiontext format="html"><text>&#220;bung: 4</text></questiontext><answer fraction="100"><text>Ja</text></answer><answer fraction="0"><text>Nein</text></answer><single>true</single><answernumbering>abc</answernumbering></question></quiz>
+<quiz>
+	<question type="multichoice">
+		<name>
+			<text>
+				&#220;bung 1:  Daten und Modell
+			</text>
+		</name>
+		<questiontext format="html">
+			<text>
+				&#220;bung 1:  Daten und Modell
+			</text>
+		</questiontext>
+		<answer fraction="100">
+			<text>
+				A
+			</text>
+		</answer>
+		<answer fraction="0">
+			<text>
+				B,
+			</text>
+		</answer>
+		<single>false</single>
+		<answernumbering>abc</answernumbering>
+	</question>
+	<question type="multichoice">
+		<name>
+			<text>
+				&#220;bung 3:  Beweis
+			</text>
+		</name>
+		<questiontext format="html">
+			<text>
+				&#220;bung 3:  Beweis
+			</text>
+		</questiontext>
+		<answer fraction="0">
+			<text>
+				A
+			</text>
+		</answer>
+		<answer fraction="100">
+			<text>
+				B
+			</text>
+		</answer>
+		<answer fraction="0">
+			<text>
+				C
+			</text>
+		</answer>
+		<single>false</single>
+		<answernumbering>abc</answernumbering>
+	</question>
+	<question type="multichoice">
+		<name>
+			<text /><text>
+				&#220;bung 4:  Messung
+			</text>
+		</name>
+		<questiontext format="html">
+			<text>
+				&#220;bung 4:  Messung
+			</text>
+		</questiontext>
+		<answer fraction="100">
+			<text>
+				Ja
+			</text>
+		</answer>
+		<answer fraction="0">
+			<text>
+				Nein
+			</text>
+		</answer>
+		<single>true</single>
+		<answernumbering>abc</answernumbering>
+	</question>
+	</quiz>

@@ -9,6 +9,7 @@
   Release:
   ========
   0.1   - 27.08.2020 (nm) - Erste Version
+  0.2   - 27.08.2020 (nm) - Lesbarere XML-Datei.
 
   WICHTIG:
   ========
@@ -74,6 +75,9 @@ exercise_counter = 0
 def prepare(doc):
     global filename
     global exercise_counter
+    global moodle_xml
+    moodle_xml.text= "\n\t"
+    moodle_xml.tail = "\n"
     logging.info("Create new Moodle quiz DOM")
     filename = "MyMoodleQuizes.xml"
 
@@ -94,49 +98,75 @@ def doExercise(e, doc):
     if type.find("A-B") != -1:
         question = ET.SubElement( moodle_xml, "question")
         question.set("type", "multichoice")
+        question.text = "\n\t\t"
+        question.tail = "\n\t"
         name = ET.SubElement(question, "name")
+        name.text = "\n\t\t\t"
+        name.tail = "\n\t\t"
         name_text = ET.SubElement(name, "text")
-        name_text.text = "Übung "+str(exercise_counter)+": "+frage
+        name_text.text = "\n\t\t\t\tÜbung "+str(exercise_counter)+": "+frage+"\n\t\t\t"
+        name_text.tail = "\n\t\t"
         questiontext = ET.SubElement(question, "questiontext")
         questiontext.set("format", "html")
+        questiontext.text = "\n\t\t\t"
+        questiontext.tail = "\n\t\t"
         questiontext_text = ET.SubElement(questiontext, "text")
-        questiontext_text.text = "Übung "+str(exercise_counter)+": "+frage
+        questiontext_text.text = "\n\t\t\t\tÜbung "+str(exercise_counter)+": "+frage+"\n\t\t\t"
+        questiontext_text.tail = "\n\t\t"
         for qst in type.split("-"):
             answer = ET.SubElement(question, "answer")
+            answer.text = "\n\t\t\t"
+            answer.tail = "\n\t\t"
             fraction = "0"
             if e.attributes["answer"].find(qst) != -1:
                 fraction = "100"
             answer.set("fraction", fraction)
             answer_text = ET.SubElement(answer, "text")
-            answer_text.text = qst
+            answer_text.text = "\n\t\t\t\t" + qst + "\n\t\t\t"
+            answer_text.tail = "\n\t\t"
         single = ET.SubElement(question, "single")
         single.text = "false"
+        single.tail ="\n\t\t"
         answernumbering =  ET.SubElement(question, "answernumbering")
         answernumbering.text = "abc"
+        answernumbering.tail = "\n\t"
 
     if type == "YESNO":
         question = ET.SubElement( moodle_xml, "question")
         question.set("type", "multichoice")
+        question.text = "\n\t\t"
+        question.tail = "\n\t"
         name = ET.SubElement(question, "name")
+        name.text = "\n\t\t\t"
+        name.tail = "\n\t\t"
         name_text = ET.SubElement(name, "text")
-        name_text.text = "Übung: "+str(exercise_counter)
+        name_text = ET.SubElement(name, "text")
+        name_text.text = "\n\t\t\t\tÜbung "+str(exercise_counter)+": "+frage+"\n\t\t\t"
+        name_text.tail = "\n\t\t"
         questiontext = ET.SubElement(question, "questiontext")
         questiontext.set("format", "html")
+        questiontext.text = "\n\t\t\t"
+        questiontext.tail = "\n\t\t"
         questiontext_text = ET.SubElement(questiontext, "text")
-        questiontext_text.text = "Übung: "+str(exercise_counter)
+        questiontext_text.text = "\n\t\t\t\tÜbung "+str(exercise_counter)+": "+frage+"\n\t\t\t"
+        questiontext_text.tail = "\n\t\t"
         for qst in "yes-no".split("-"):
             answer = ET.SubElement(question, "answer")
+            answer.text = "\n\t\t\t"
+            answer.tail = "\n\t\t"
             fraction = "0"
             if e.attributes["answer"].find(qst) != -1:
                 fraction = "100"
             answer.set("fraction", fraction)
             answer_text = ET.SubElement(answer, "text")
-            answer_text.text = "Ja" if qst.upper() =="YES" else "Nein"
-            
+            answer_text.text = "\n\t\t\t\tJa\n\t\t\t" if qst.upper() =="YES" else "\n\t\t\t\tNein\n\t\t\t"
+            answer_text.tail = "\n\t\t"
         single = ET.SubElement(question, "single")
         single.text = "true"
+        single.tail ="\n\t\t"
         answernumbering =  ET.SubElement(question, "answernumbering")
         answernumbering.text = "abc"
+        answernumbering.tail = "\n\t"
 
     return e
 
