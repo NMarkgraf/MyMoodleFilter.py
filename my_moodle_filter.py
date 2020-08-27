@@ -62,7 +62,7 @@ elif os.path.exists("my_moodle_filter.loglevel.error"):
 else:
     DEBUGLEVEL = logging.ERROR  # .ERROR or .DEBUG  or .INFO
 
-DEBUGLEVEL = logging.ERROR
+DEBUGLEVEL = logging.INFO
 
 logging.basicConfig(filename='my_moodle_filter.log', level=DEBUGLEVEL)
 
@@ -86,16 +86,22 @@ def doExercise(e, doc):
     global moodle_xml
     global exercise_counter
     
+    logging.debug("Exercise encountered!")
+    
     exercise_counter += 1
     
     if not e.attributes:
+        logging.warning("WARNING: No attributes!!")
         return e
         
     type = e.attributes["type"].upper()
+    logging.debug("Found type attribute: "+ type)
     
     frage = pf.stringify(e).partition(":")[2]
+    logging.info("Question: "+frage)
     
     if type.find("A-B") != -1:
+        logging.info("Generate multichoice XML entry!")
         question = ET.SubElement( moodle_xml, "question")
         question.set("type", "multichoice")
         question.text = "\n\t\t"
@@ -118,8 +124,11 @@ def doExercise(e, doc):
             answer.text = "\n\t\t\t"
             answer.tail = "\n\t\t"
             fraction = "0"
-            if e.attributes["answer"].find(qst) != -1:
-                fraction = "100"
+            if "answer" in e.attributes:
+                if e.attributes["answer"].find(qst) != -1:
+                    fraction = "100"
+            else:
+                logging.warning("NO CORRECT ANSWER FOUND!")
             answer.set("fraction", fraction)
             answer_text = ET.SubElement(answer, "text")
             answer_text.text = "\n\t\t\t\t" + qst + "\n\t\t\t"
@@ -132,6 +141,7 @@ def doExercise(e, doc):
         answernumbering.tail = "\n\t"
 
     if type == "YESNO":
+        logging.info("Generate multichoice (yes/no) XML entry!")
         question = ET.SubElement( moodle_xml, "question")
         question.set("type", "multichoice")
         question.text = "\n\t\t"
@@ -155,8 +165,11 @@ def doExercise(e, doc):
             answer.text = "\n\t\t\t"
             answer.tail = "\n\t\t"
             fraction = "0"
-            if e.attributes["answer"].find(qst) != -1:
-                fraction = "100"
+            if "answer" in e.attributes:
+                if e.attributes["answer"].find(qst) != -1:
+                    fraction = "100"
+            else:
+                logging.warning("NO CORRECT ANSWER FOUND!")
             answer.set("fraction", fraction)
             answer_text = ET.SubElement(answer, "text")
             answer_text.text = "\n\t\t\t\tJa\n\t\t\t" if qst.upper() =="YES" else "\n\t\t\t\tNein\n\t\t\t"
@@ -199,9 +212,9 @@ def main(doc=None):
     """main function.
     """
 
-    logging.debug("Start pandoc filter 'my_moodle_filter'")
+    logging.info("Start pandoc filter 'my_moodle_filter'")
     ret = pf.run_filter(action, prepare=prepare, finalize=finalize, doc=doc)
-    logging.debug("End pandoc filter 'my_moodle_filter'")
+    logging.info("End pandoc filter 'my_moodle_filter'")
     
     return ret
 
